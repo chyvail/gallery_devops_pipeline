@@ -6,7 +6,7 @@ pipeline {
         stages {
             stage('Clone the repo'){
                 steps {
-                    git 'https://github.com/jonnygovish/gallery.git'
+                    git 'https://github.com/chyvail/gallery_devops_pipeline.git'
                 }
             }
             stage('build'){
