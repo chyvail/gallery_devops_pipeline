@@ -1,23 +1,23 @@
 pipeline {
     agent any
+    tools {
+        nodejs 'Node-19.1.0'
+        }
         stages {
-            stage('build'){
+            stage('Clone the repo'){
                 steps {
-                    echo 'Building our software'
-                    sh 'npm install'
+                    git 'https://github.com/jonnygovish/gallery.git'
                 }
             }
-            stage('test'){
+            stage('build'){
                 steps {
-                    echo 'test software'"
-                    sh 'npm test'
+                    echo 'building'
+                    sh 'npm install'
                 }
             }
             stage('deploy to Heroku'){
                 steps {
-                    withCredentials([usernameColonPassword(credentialsId: 'heroku', variable: 'HEROKU_CREDENTIALS' )]){
-                    sh 'git push https://${HEROKU_CREDENTIALS}@git.heroku.com/gentle-temple-39284.git master'
-                    }
+                    sh 'git push https://joshuachivile:7a90b5a2-d4d9-4daf-abc5-e7f2853d3f9c@git.heroku.com/gentle-temple-39284.git -f master'
                 }
             }
         }
