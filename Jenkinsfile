@@ -33,23 +33,21 @@ pipeline {
         post {
                 always {
                     script {
-                        if (currentBuild.currentResult == 'FAILURE') {
+                        if (currentBuild.currentResult == 'FAILURE' || currentBuild.currentResult == 'SUCCESS'  ) {
                             step([$class: 'Mailer', notifyEveryUnstableBuild: true, recipients: "joshuachivile@gmail.com", sendToIndividuals: true])
+                        }
                     }
-                    }
+                }
+                success {
+                    slackSend channel: '#joshua_ip1',
+                        color: 'good',
+                        message: "The pipeline ${currentBuild.fullDisplayName} completed successfully. Visit https://gentle-temple-39284.herokuapp.com/"
+                }
+                failure {
+                    slackSend channel: '#joshua_ip1',
+                            color: 'danger',
+                            message: "The pipeline ${currentBuild.fullDisplayName} completed successfully."
                 }
             }
 
-        post {
-            success {
-                slackSend channel: '#b2cdevops',
-                        color: 'good',
-                        message: "The pipeline ${currentBuild.fullDisplayName} completed successfully."
-            }
-            failure {
-                slackSend channel: '#b2cdevops',
-                        color: 'danger',
-                        message: "The pipeline ${currentBuild.fullDisplayName} completed successfully."
-            }
-        }
 }
