@@ -48,7 +48,7 @@ pipeline {
                 failure {
                     slackSend channel: '#joshua_ip1',
                             color: 'danger',
-                            message: "The pipeline ${currentBuild.fullDisplayName} completed successfully."
+                            message: "The pipeline ${currentBuild.fullDisplayName} failed."
                 }
             }
 
